@@ -14,7 +14,7 @@ My work was to add 8 new batteries-included plotting functions to Arviz-Plots, i
 
 ## My Work
 
-Although implementing a total of 8 plotting functions was my goal -as outlined in my initial project proposal- I only managed to work on 7, with individual PRs for each of these. Some of the logic involved, working with the existing codebase and the main dependencies worked with was technically harder than I had anticipated. The `PlotCollection` class and Arviz-Plots’ other paradigms like the visual element functions with common backend interfaces were used for this and relevant patterns followed. I also worked on adding support for histograms to the preexisting `plot_dist`, with a custom utility function for processing the histogram data that lasted until an Arviz-Stats update meant it was no longer required. 
+Although implementing a total of 8 plotting functions was my goal -as outlined in my initial project proposal- I only managed to work on 7, with individual PRs for each of these. Some of the logic involved, working with the existing codebase and the main dependencies worked with was technically harder than I had anticipated. The `PlotCollection` class and Arviz-Plots’ other paradigms like the visual element functions with common backend interfaces were used for this and relevant patterns followed. I also worked on adding support for histograms to the preexisting `plot_dist`, with a custom utility function for processing the histogram data that lasted until an Arviz-Stats update meant it was no longer required. These plotting functions are exposed to users using the Arviz-Plots package and assist in visualizing relevant inference models data and diagnostics supplied to these functions in the form of `DataTree` data structures (an extension of Xarray datasets/dataarrays). 
 
 The initial stage of the project was personally the most challenging, with the `plot_ppc` function that I started off with still slightly short of being mergeable at the time of writing this. However, there are only a few issues with tests left to be resolved. Others were easier, like `plot_ridge`, owing to being based off of `plot_forest` which was already in place and stable. 
 
@@ -60,6 +60,19 @@ At the time of writing this, the 'other PRs' are all fully merged and among the 
 - `plot_ppc` (Only a couple more failing tests to resolve)
 - `plot_rootogram` (Bayesian errorbars addition to the existing visual elements and docstrings and example in the example gallery)
 - `plot_violin` (Fix for aesthetic mapping when two models are passed and credible intervals and point estimate mapping and positioning)
+
+## Challenges/Learnings/Conclusion:
+
+The main challenge in implementing these plotting functions was in data transformation- using Xarray and working with Bayesian inference data was harder than I'd anticipated. It took a while to mentally grasp the concepts of dimensional reduction and facetting, which are very important in any of the plots' working algorithms. 
+
+I also went through parts of this [bayesian computation online book](https://bayesiancomputationbook.com/welcome.html#) at first to get how the data was generated at first to better understand what to plot. Communicating with my mentors on Slack and weekly meetings helped a lot with understanding how to use the PlotCollection class correctly and use the intended patterns and to get through other various issues that came up with errors and regarding proper dependency use and codebase environment management.
+
+Overall, this was a very fruitful experience and my learnings include:
+- Being better able to navigate and understand a large existing codebase (The current Arviz implementation, of which parts were refactored into Arviz-Plots) 
+- Working with the Xarray, Matplotlib, Bokeh, Pytest, Hypothesis and Sphinx python dependencies primarily, which were heavily employed in the code written for this work
+- A better knowledge/understanding of probabilistic modelling and inference
+- Good code practices such as writing good documentation, thoughtful code design, working through edge cases while writing code and checking these with tests, and mental models of complex pieces of utility code such as dependencies and common classes (Like `PlotCollection`)
+- Better Git usage, including learning about proper rebasing and using feature branches for new PRs and commits, and enforcing proper code with Pylint. 
 
 
 
